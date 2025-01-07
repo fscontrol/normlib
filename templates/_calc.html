@@ -1,0 +1,36 @@
+<div class="tab-pane fade" id="calc" role="tabpanel" aria-labelledby="calc-tab">
+    <h3>Calc</h3>
+    <button type="submit" class="btn btn-primary" id="calc_button">Calculate</button>
+    <div class="alert alert-primary" role="alert" id="calc_results">
+
+    </div>
+</div>
+<script>
+  document.getElementById('calc_button').addEventListener('click', function() {
+    var req = {}
+    req['standard'] = JSON.parse(localStorage.getItem('standard'));
+    req['current'] = JSON.parse(localStorage.getItem('current'));
+    fetch('/calc', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(req),
+    }).then(response => response.json())
+      .then(data => {
+        //если data["message"] не пустой и строка то выводим его в #calc_results
+        if (data['message'] && typeof data['message'] === 'string'){
+          document.getElementById('calc_results').innerHTML = data['message'];
+        } else{
+          document.getElementById('calc_results').innerHTML = "<h4>Results:</h4>";
+          for (var key in data['message']) {
+            document.getElementById('calc_results').innerHTML += '<div class="row"><div class="col">' + key + '</div><div class="col">' + data['message'][key] + '</div></div>';
+          }
+        }
+
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  });
+</script>

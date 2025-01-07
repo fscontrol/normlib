@@ -1,0 +1,66 @@
+<div class="tab-pane fade" id="current" role="tabpanel" aria-labelledby="current-tab">
+    <h3>Current Parameters</h3>
+    <div class="form-group">
+        <label for="p_feed_current">Feed Pressure (p_feed)</label>
+        <input type="number" class="form-control" id="p_feed_current" name="p_feed_current" step="any" required>
+    </div>
+    <div class="form-group">
+        <label for="p_conc_current">Concentrate Pressure (p_conc)</label>
+        <input type="number" class="form-control" id="p_conc_current" name="p_conc_current" step="any" required>
+    </div>
+    <div class="form-group">
+        <label for="p_perm_current">Permeate Pressure (p_perm)</label>
+        <input type="number" class="form-control" id="p_perm_current" name="p_perm_current" step="any" required>
+    </div>
+    <div class="form-group">
+        <label for="square_current">Membrane Area (square)</label>
+        <input type="number" class="form-control" id="square_current" name="square_current" step="any" required>
+    </div>
+    <div class="form-group">
+        <label for="c_feed_current">Feed Concentration (c_feed)</label>
+        <input type="number" class="form-control" id="c_feed_current" name="c_feed_current" step="any" required>
+    </div>
+    <div class="form-group">
+        <label for="q_feed_current">Feed Flow Rate (q_feed)</label>
+        <input type="number" class="form-control" id="q_feed_current" name="q_feed_current" step="any" required>
+    </div>
+    <div class="form-group">
+        <label for="q_perm_current">Permeate Flow Rate (q_perm)</label>
+        <input type="number" class="form-control" id="q_perm_current" name="q_perm_current" step="any" required>
+    </div>
+    <div class="form-group">
+        <label for="c_perm_current">Permeate Concentration (c_perm)</label>
+        <input type="number" class="form-control" id="c_perm_current" name="c_perm_current" step="any" required>
+    </div>
+    <div class="form-group">
+        <label for="temp_current">Temperature (temp)</label>
+        <input type="number" class="form-control" id="temp_current" name="temp_current" step="any" required>
+    </div>
+    <button type="submit" class="btn btn-primary" id="current_button">Save Current</button>
+</div>
+<script>
+  //если в localstorage есть данные, то заполнить поля формы
+    var current = JSON.parse(localStorage.getItem('current'));
+    if (current) {
+      var elements_current = document.querySelectorAll('#current input');
+      for (var i = 0; i < elements_current.length; i++) {
+        var element = elements_current[i];
+        var key = element.id;
+        var value = current[key];
+        element.value = value;
+      }
+    }
+  document.getElementById('current_button').addEventListener('click', function() {
+    //collect all input fields for current parameters in json
+    var elements_current = document.querySelectorAll('#current input');
+    var current = {};
+    for (var i = 0; i < elements_current.length; i++) {
+      var element = elements_current[i];
+      var key = element.id;
+      var value = element.value;
+      current[key] = value;
+    }
+    //save current parameters in local storage
+    localStorage.setItem('current', JSON.stringify(current));
+  });
+</script>

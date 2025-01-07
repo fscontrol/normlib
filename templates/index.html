@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2>RO Normalization Parameters</h2>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="standard-tab" data-toggle="tab" href="#standard" role="tab" aria-controls="standard" aria-selected="true">Standard Parameters</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="current-tab" data-toggle="tab" href="#current" role="tab" aria-controls="current" aria-selected="false">Current Parameters</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="calc-tab" data-toggle="tab" href="#calc" role="tab" aria-controls="calc" aria-selected="false">Calc</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        {% include "_standard.html" %}
+        {% include "_current.html" %}
+        {% include "_calc.html" %}
+
+    </div>
+</div>
+{% endblock %}

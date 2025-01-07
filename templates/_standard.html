@@ -1,0 +1,64 @@
+<div class="tab-pane fade show active" id="standard" role="tabpanel" aria-labelledby="standard-tab">
+<div class="form-group">
+    <label for="p_feed_standard">Feed Pressure (p_feed)</label>
+    <input type="number" class="form-control" id="p_feed_standard" name="p_feed_standard" step="any" required>
+</div>
+<div class="form-group">
+    <label for="p_conc_standard">Concentrate Pressure (p_conc)</label>
+    <input type="number" class="form-control" id="p_conc_standard" name="p_conc_standard" step="any" required>
+</div>
+<div class="form-group">
+    <label for="p_perm_standard">Permeate Pressure (p_perm)</label>
+    <input type="number" class="form-control" id="p_perm_standard" name="p_perm_standard" step="any" required>
+</div>
+<div class="form-group">
+    <label for="square_standard">Membrane Area (square)</label>
+    <input type="number" class="form-control" id="square_standard" name="square_standard" step="any" required>
+</div>
+<div class="form-group">
+    <label for="c_feed_standard">Feed Concentration (c_feed)</label>
+    <input type="number" class="form-control" id="c_feed_standard" name="c_feed_standard" step="any" required>
+</div>
+<div class="form-group">
+    <label for="q_feed_standard">Feed Flow Rate (q_feed)</label>
+    <input type="number" class="form-control" id="q_feed_standard" name="q_feed_standard" step="any" required>
+</div>
+<div class="form-group">
+    <label for="q_perm_standard">Permeate Flow Rate (q_perm)</label>
+    <input type="number" class="form-control" id="q_perm_standard" name="q_perm_standard" step="any" required>
+</div>
+<div class="form-group">
+    <label for="c_perm_standard">Permeate Concentration (c_perm)</label>
+    <input type="number" class="form-control" id="c_perm_standard" name="c_perm_standard" step="any" required>
+</div>
+<div class="form-group">
+    <label for="temp_standard">Temperature (temp)</label>
+    <input type="number" class="form-control" id="temp_standard" name="temp_standard" step="any" required>
+</div>
+<button type="submit" class="btn btn-primary" id="standard_button">Save Standard</button></div>
+<script>
+  //если в localstorage есть данные, то заполнить поля формы
+    var standard = JSON.parse(localStorage.getItem('standard'));
+    if (standard) {
+      var elements_standard = document.querySelectorAll('#standard input');
+      for (var i = 0; i < elements_standard.length; i++) {
+        var element = elements_standard[i];
+        var key = element.id;
+        var value = standard[key];
+        element.value = value;
+      }
+    }
+  document.getElementById('standard_button').addEventListener('click', function() {
+    //collect all input fields for standard parameters in json
+    var elements_standard = document.querySelectorAll('#standard input');
+    var standard = {};
+    for (var i = 0; i < elements_standard.length; i++) {
+      var element = elements_standard[i];
+      var key = element.id;
+      var value = element.value;
+      standard[key] = value;
+    }
+    //save standard parameters in local storage
+    localStorage.setItem('standard', JSON.stringify(standard));
+  });
+</script>
